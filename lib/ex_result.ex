@@ -1,18 +1,5 @@
 defmodule ExResult do
   @moduledoc """
-  Documentation for `ExResult`.
+  Result/Either library inspired by Rust.
   """
-
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> ExResult.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
 end
