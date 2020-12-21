@@ -1,5 +1,7 @@
 # ExResult
 
+![Elixir CI](https://github.com/akthrms/ex_result/workflows/Elixir%20CI/badge.svg)
+
 Result/Either library inspired by Rust.
 
 ## Installation
