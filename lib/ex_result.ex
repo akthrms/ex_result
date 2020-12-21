@@ -65,4 +65,38 @@ defmodule ExResult do
   def map({:ok, value}, fun), do: ok(fun.(value))
 
   def map(result = {:error, _}, _), do: result
+
+  @spec map_or(result(), any(), (any() -> any())) :: any()
+  @doc """
+  Applies a function to the contained value (if ok), or returns the provided default (if error).
+
+  ## Examples
+
+      iex> ExResult.ok("foo") |> ExResult.map_or(42, &String.length/1)
+      3
+
+      iex> ExResult.error("bar") |> ExResult.map_or(42, &String.length/1)
+      42
+  """
+  def map_or({:ok, value}, _, fun), do: fun.(value)
+
+  def map_or({:error, _}, default, _), do: default
+
+  @spec map_or_else(result(), (any() -> any()), (any() -> any())) :: any()
+  @doc """
+  Maps a result to any by applying a function to a contained ok value, or a fallback function to a contained error value.
+
+  ## Examples
+
+      iex> ExResult.ok("foo")
+      ...> |> ExResult.map_or_else(fn _ -> 21 * 2 end, fn x -> String.length(x) end)
+      3
+
+      iex> ExResult.error("bar")
+      ...> |> ExResult.map_or_else(fn _ -> 21 * 2 end, fn x -> String.length(x) end)
+      42
+  """
+  def map_or_else({:ok, value}, _, fun), do: fun.(value)
+
+  def map_or_else({:error, value}, default, _), do: default.(value)
 end
